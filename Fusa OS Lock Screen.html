@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="icon"
+      href="https://i.ibb.co/39sMvq8z/Screenshot-2025-04-10-at-5-05-59-PM.png"
+      type="image/png"
+    />
+    <meta
+      name="google-site-verification"
+      content="p2E75h_8i5wDc9b0Ub3rpWJb8sy0cqq12HJL_mclgnQ"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fusa OS</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      .button {
+        display: inline-block;
+        margin: 10px;
+        cursor: pointer;
+        font-size: 20px;
+
+        color: white;
+      }
+      .button:hover {
+        scale: 1.03;
+      }
+      #iframeContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        z-index: 100000000000000000;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        z-index: 100000000000000000;
+      }
+      .settings {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 40px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      .settings:hover + .dropdown,
+      .dropdown:hover {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="settings">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-power"
+        viewBox="0 0 16 16"
+      >
+        <path d="M7.5 1v7h1V1z" />
+        <path
+          d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"
+        />
+      </svg>
+    </div>
+    <div class="dropdown">
+      <div class="button" onclick="loadIframe('https://restart-fos.glitch.me')">
+        Restart
+      </div>
+      <div class="button" onclick="loadIframe('https://fos-update.glitch.me')">
+        Update
+      </div>
+      <div
+        class="button"
+        onclick="loadIframe('https://internet-recovery-fos.glitch.me/')"
+      >
+        Recovery Mode
+      </div>
+    </div>
+
+    <div id="iframeContainer">
+      <iframe id="mainIframe"></iframe>
+    </div>
+
+    <script>
+      function loadIframe(url) {
+        document.getElementById("mainIframe").src = url;
+        document.getElementById("iframeContainer").style.display = "block";
+      }
+      function hideIframe() {
+        document.getElementById("iframeContainer").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FUSA OS - Liquid Glass Edition</title>
+    <style>
+      /* 
+        ====================================================================
+        CORE STYLES & LIQUID GLASS ENGINE
+        ====================================================================
+        */
+
+      /* CSS Variables for easy customization */
+      :root {
+        --glass-blur: 3px;
+        --glass-saturation: 130%;
+
+        --shadow-opacity: 0.2;
+        --border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        min-height: 100vh;
+        background-color: #000;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none; /* Prevents scrolling on touch devices */
+      }
+
+      /* Animations (keeping only necessary ones) */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Background Styles */
+      .background {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        transition: opacity 1s ease;
+      }
+
+      .background img,
+      .background video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Clock Styles */
+      .clock {
+        position: fixed;
+        top: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 1s ease;
+        z-index: 10;
+      }
+
+      .clock .date {
+        font-size: 1.25rem;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
+        opacity: 0.9;
+      }
+
+      .clock .time {
+        font-size: 6rem;
+        font-weight: 200;
+      }
+
+      /* 
+        ====================================================================
+        REUSABLE LIQUID GLASS CONTAINER
+        ====================================================================
+        */
+
+      .liquid-glass-container {
+        position: relative;
+        transform-style: preserve-3d;
+        border-radius: 1.5rem; /* Base radius for containers */
+        cursor: grab;
+      }
+
+      /* The Front and Back faces of the glass effect */
+      .liquid-glass-container::before,
+      .liquid-glass-container::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit; /* Inherits radius from parent */
+      }
+
+      /* FRONT FACE: Main glass effect, highlights, and shadows */
+      .liquid-glass-container::before {
+        background: radial-gradient(
+            ellipse at 30% 25%,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0) 60%
+          ),
+          var(--glass-tint);
+        border: 1.5px solid var(--border-color);
+        backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturation));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturation));
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2),
+          inset 0 -2px 4px rgba(0, 0, 0, calc(var(--shadow-opacity) * 1.5)),
+          inset 0 0 30px rgba(0, 0, 0, var(--shadow-opacity));
+        transform: translateZ(10px); /* Pushes face forward */
+      }
+
+      /* BACK FACE: Simpler effect for depth */
+      .liquid-glass-container::after {
+        background: var(--glass-tint);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturation));
+        -webkit-backdrop-filter: blur(var(--glass-blur))
+          saturate(var(--glass-saturation));
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, var(--shadow-opacity));
+        transform: translateZ(-10px); /* Pushes face backward */
+      }
+
+      /* THE EDGE: Creates the 3D side of the container */
+      .glass-band {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        transform: rotateX(90deg);
+      }
+
+      .glass-band::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 20px; /* MUST match total Z distance (10px - (-10px)) */
+        transform: translateY(-50%);
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.15),
+          rgba(255, 255, 255, 0.05) 40% 60%,
+          rgba(0, 0, 0, 0.15)
+        );
+      }
+
+      /* Container for content *inside* the glass */
+      .glass-content {
+        position: relative;
+        z-index: 1;
+        transform: translateZ(10px); /* Must match front face's Z */
+      }
+
+      /* Main Container: Centers the card and provides 3D perspective */
+      .container {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        perspective: 1200px;
+        animation: fadeIn 0.5s ease;
+      }
+
+      /* Card Styles */
+      .card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+      }
+
+      /* Form Styles */
+      .input-group {
+        margin-bottom: 1rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0.75rem;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      input:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.2);
+      }
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Profile Picture Styles */
+      .profile-upload {
+        width: 128px;
+        height: 128px;
+        margin: 0 auto 2rem;
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .profile-upload:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .profile-upload img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .profile-upload .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .profile-upload:hover .overlay {
+        opacity: 1;
+      }
+
+      /* Environment Button & Picker Styles */
+      .environment-scene {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 100;
+        perspective: 1200px;
+      }
+      .environment-button {
+        padding: 0.75rem 1.5rem;
+        width: auto;
+        border-radius: 0.75rem;
+        
+      }
+.environment-picker {
+  position: absolute;
+  bottom: calc(100% + 1rem); /* stay above button */
+  right: 0;
+  width: 300px;
+  height: auto; /* grow naturally */
+  max-height: calc(90vh - 2rem); /* don't go outside viewport */
+  padding: 1rem;
+  overflow-y: auto; /* scroll if needed */
+  border-radius: 3rem;
+  box-sizing: border-box; /* ensures padding doesn’t increase total size */
+}
+
+      
+      .environment-option {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        
+        border-radius: 0.75rem;
+        overflow: hidden;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .environment-option:last-child {
+        margin-bottom: 0;
+      }
+      .environment-option.active {
+       border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+      }
+      .environment-option:hover:not(.active) {
+        transform: scale(1.05);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .environment-option img,
+      .environment-option video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .environment-option .label {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.875rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+        
+      }
+
+      /* Credit Styles */
+      .credit {
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.75rem;
+        animation: fadeIn 0.5s ease;
+      }
+      .credit a {
+        color: white;
+        text-decoration: none;
+      }
+      .credit a:hover {
+        text-decoration: underline;
+      }
+
+      /* Utility Styles */
+      .spinner {
+        width: 24px;
+        height: 24px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: auto;
+      }
+      .fullscreen-iframe {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <img
+        src="https://i.ibb.co/Cpj8cWBm/blur-1889747-copy-2.jpg"
+        alt="Background"
+      />
+    </div>
+
+    <div class="clock">
+      <div class="date"></div>
+      <div class="time"></div>
+    </div>
+
+    <div class="container">
+      <!-- Card content is dynamically injected here -->
+    </div>
+
+    <div class="environment-scene">
+      <button
+        class="environment-button liquid-glass-container"
+        onclick="toggleEnvironment()"
+      >
+        <div class="glass-band"></div>
+        <div class="glass-content">Environment</div>
+      </button>
+      <!-- Picker is injected here -->
+    </div>
+
+    <div class="credit">
+      <span class="credit-text"></span>
+    </div>
+
+    <script>
+      // ==========================================================
+      // PHYSICS ANIMATION ENGINE
+      // ==========================================================
+      const STIFFNESS = 0.1,
+        DAMPING = 0.6,
+        MASS = 10;
+      let physicsObjects = [];
+
+      function createPhysicsObject(element, config = {}) {
+        const obj = {
+          element: element,
+          config: {
+            canMove: config.canMove ?? false,
+            canStretch: config.canStretch ?? false,
+            canRotate: config.canRotate ?? false,
+            hoverContainerSelector: config.hoverContainerSelector,
+          },
+          anim: {
+            translateX: { current: 0, target: 0, velocity: 0 },
+            translateY: { current: 0, target: 0, velocity: 0 },
+            scaleX: { current: 1, target: 1, velocity: 0 },
+            scaleY: { current: 1, target: 1, velocity: 0 },
+            rotateX: { current: 0, target: 0, velocity: 0 },
+            rotateY: { current: 0, target: 0, velocity: 0 },
+          },
+          isDragging: false,
+          dragStartPos: { x: 0, y: 0 },
+        };
+
+        function handleDragStart(e) {
+          if (!obj.config.canMove) return;
+          obj.isDragging = true;
+          const pos = e.touches ? e.touches[0] : e;
+          obj.dragStartPos = {
+            x: pos.clientX - obj.anim.translateX.current,
+            y: pos.clientY - obj.anim.translateY.current,
+          };
+          obj.element.style.cursor = "grabbing";
+        }
+
+        function handleDragMove(e) {
+          if (!obj.isDragging) return;
+          e.preventDefault();
+          const pos = e.touches ? e.touches[0] : e;
+          const deltaX = pos.clientX - obj.dragStartPos.x;
+          const deltaY = pos.clientY - obj.dragStartPos.y;
+          obj.anim.translateX.target = deltaX;
+          obj.anim.translateY.target = deltaY;
+        }
+
+        function handleDragEnd() {
+          if (!obj.isDragging) return;
+          obj.isDragging = false;
+          obj.anim.translateX.target = 0;
+          obj.anim.translateY.target = 0;
+          obj.element.style.cursor = "grab";
+        }
+
+        obj.element.addEventListener("mousedown", handleDragStart);
+        obj.element.addEventListener("touchstart", handleDragStart, {
+          passive: true,
+        });
+        window.addEventListener("mousemove", handleDragMove);
+        window.addEventListener("touchmove", handleDragMove, {
+          passive: false,
+        });
+        window.addEventListener("mouseup", handleDragEnd);
+        window.addEventListener("touchend", handleDragEnd);
+
+        return obj;
+      }
+
+      function updateAllAnimations() {
+        physicsObjects.forEach((obj) => {
+          for (const key in obj.anim) {
+            const prop = obj.anim[key];
+            const force = -STIFFNESS * (prop.current - prop.target);
+            const dampingForce = -DAMPING * prop.velocity;
+            const acceleration = (force + dampingForce) / MASS;
+            prop.velocity += acceleration;
+            prop.current += prop.velocity;
+          }
+          obj.element.style.transform = `
+                    translateX(${obj.anim.translateX.current}px) 
+                    translateY(${obj.anim.translateY.current}px) 
+                    rotateX(${obj.anim.rotateX.current}deg) 
+                    rotateY(${obj.anim.rotateY.current}deg) 
+                    scaleX(${obj.anim.scaleX.current}) 
+                    scaleY(${obj.anim.scaleY.current})
+                `;
+        });
+        requestAnimationFrame(updateAllAnimations);
+      }
+      updateAllAnimations();
+
+      // ==========================================================
+      // APPLICATION LOGIC
+      // ==========================================================
+      const state = {
+        /* ... (same state object as before) ... */
+      };
+      // ... (copy your full 'state' object here)
+      state.backgrounds = [
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2016/08/12/4382-178617337_large.mp4",
+          credit: " unknown creator",
+          photographer: "Fusa OS",
+          profileUrl:
+            "https://pixabay.com/videos/earth-cosmos-planet-globus-28531/",
+          name: "Fusa OS Glass",
+        },
+
+        {
+          url: "https://i.ibb.co/Cpj8cWBm/blur-1889747-copy-2.jpg",
+          credit: "FUSA OS Default",
+          photographer: "Fusa",
+          name: "Fusa OS",
+        },
+        {
+          url: "https://cdn.pixabay.com/photo/2022/09/01/00/11/background-7424381_1280.jpg",
+          credit: "FUSA OS 2",
+          photographer: "Fusa",
+          name: "Fusa OS 2",
+        },
+        {
+          url: "https://cdn.pixabay.com/photo/2022/09/01/00/10/green-7424378_1280.jpg",
+          credit: "FUSA OS 3",
+          photographer: "Fusa",
+          name: "Fusa OS 3",
+        },
+        {
+          url: "https://cdn.pixabay.com/photo/2022/09/01/00/10/background-7424379_1280.jpg",
+          credit: "FUSA OS 4",
+          photographer: "Fusa",
+          name: "Fusa OS 4",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2019/10/31/28531-370317126_large.mp4",
+          credit: " unknown creator",
+          photographer: "pixabay.com",
+          profileUrl:
+            "https://pixabay.com/videos/earth-cosmos-planet-globus-28531/",
+          name: "Earth",
+        },
+        {
+          url: "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?auto=format&fit=crop&w=2560",
+          credit: "Mountain Lake at Sunset",
+          photographer: "Paul Gilmore",
+          profileUrl: "https://unsplash.com/@paulgilmore",
+          name: "Mountain Lake",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2023/10/29/187068-879649722_large.mp4",
+          credit: "Yosemite Valley",
+          photographer: "Blake Verdoorn",
+          profileUrl: "https://unsplash.com/@blakeverdoorn",
+          name: "Cinematic mountains",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2019/06/05/24216-340670744_large.mp4",
+          credit: "Northern Lights",
+          photographer: "Vincent Guth",
+          profileUrl: "https://unsplash.com/@vincentguth",
+          name: "Sea ocean wave",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2020/09/15/49981-459802291_large.mp4",
+          credit: "Forest Stream",
+          photographer: "unsplash",
+          name: "Cinematic Forest",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2023/07/09/170697-843752801_large.mp4",
+          credit: "Forest Stream",
+          photographer: "unsplash",
+          name: "Cinematic Rain forest",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2021/01/29/63427-506377691_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Jack & Sue",
+          name: "Underwater",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2018/11/17/19400-301531337_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Unknown",
+          name: "Cinematic forest",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2016/02/11/2119-155244112_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Unknown",
+          name: "Cinematic sunset",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2024/09/29/233867_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Unknown",
+          name: "Close up water",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2019/07/07/25023-347958030_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Unknown",
+          name: "Light beem 1",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2019/07/07/25024-347958029_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Unknown",
+          name: "Light beem 2",
+        },
+        {
+          type: "cinematic",
+          url: "https://cdn.pixabay.com/video/2019/12/09/30016-378309079_large.mp4",
+          credit: "pixabay.com",
+          photographer: "Unknown",
+          name: "Loop",
+        },
+      ];
+      state.currentBackground = 0;
+      state.userData = null;
+
+      // ... (rest of your JavaScript logic: saveState, updateClock, updateBackground, etc.)
+
+      // Load saved state
+      const savedState = localStorage.getItem("fusaState");
+      if (savedState) {
+        const parsed = JSON.parse(savedState);
+        state.userData = parsed.userData;
+        state.currentBackground = parsed.currentBackground || 0;
+        state.currentStep = state.userData ? "login" : "welcome";
+      }
+
+      // Save state
+      function saveState() {
+        localStorage.setItem(
+          "fusaState",
+          JSON.stringify({
+            userData: state.userData,
+            currentBackground: state.currentBackground,
+          })
+        );
+      }
+
+      // Clock functionality
+      function updateClock() {
+        const now = new Date();
+        const dateEl = document.querySelector(".clock .date");
+        const timeEl = document.querySelector(".clock .time");
+
+        dateEl.textContent = now.toLocaleDateString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+        });
+
+        timeEl.textContent = now.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
+      }
+
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Background management
+      function updateBackground() {
+        const bg = state.backgrounds[state.currentBackground];
+        const container = document.querySelector(".background");
+        const credit = document.querySelector(".credit-text");
+
+        container.innerHTML =
+          bg.type === "cinematic"
+            ? `<video src="${bg.url}" autoplay loop muted playsinline></video>`
+            : `<img src="${bg.url}" alt="${bg.name}">`;
+
+        credit.innerHTML = bg.profileUrl
+          ? `Photo by <a href="${bg.profileUrl}" target="_blank">${bg.photographer}</a> — ${bg.credit}`
+          : `${bg.credit}`;
+
+        saveState();
+      }
+
+      updateBackground();
+
+      // Environment picker
+      function toggleEnvironment() {
+        const scene = document.querySelector(".environment-scene");
+        const existing = scene.querySelector(".environment-picker");
+        if (existing) {
+          physicsObjects = physicsObjects.filter((p) => p.element !== existing);
+          existing.remove();
+          return;
+        }
+
+        const picker = document.createElement("div");
+        picker.className = "environment-picker liquid-glass-container";
+
+        const content = document.createElement("div");
+        content.className = "glass-content";
+
+        picker.innerHTML = `<div class="glass-band"></div>`;
+
+        state.backgrounds.forEach((bg, index) => {
+          const option = document.createElement("div");
+          option.className = `environment-option ${
+            index === state.currentBackground ? "active" : ""
+          }`;
+          option.innerHTML = `
+                    ${
+                      bg.type === "cinematic"
+                        ? `<video src="${bg.url}" muted loop playsinline></video>`
+                        : `<img src="${bg.url}" alt="${bg.name}">`
+                    }
+                    <div class="label">${bg.name}</div>
+                `;
+          if (bg.type === "cinematic") option.querySelector("video").play();
+          option.onclick = () => {
+            state.currentBackground = index;
+            updateBackground();
+            toggleEnvironment();
+          };
+          content.appendChild(option);
+        });
+
+        picker.appendChild(content);
+        scene.appendChild(picker);
+
+        // Add physics to the new picker
+        physicsObjects.push(createPhysicsObject(picker, { canMove: true }));
+      }
+
+      function clearMainContainer() {
+        document.querySelector(".container").innerHTML = "";
+        physicsObjects = physicsObjects.filter(
+          (p) => !p.element.classList.contains("card")
+        );
+      }
+
+      // Show welcome screen
+      function showWelcome() {
+        clearMainContainer();
+        const container = document.querySelector(".container");
+        const cardHTML = `
+                <div class="card liquid-glass-container">
+                    <div class="glass-band"></div>
+                    <div class="glass-content">
+                        <h1 style="text-align: center; margin-bottom: 2rem; font-weight: 300; font-size: 2rem;">Welcome to Fusa OS</h1>
+                        <p style="text-align: center; margin-bottom: 2rem; opacity: 0.8;">Let's get you set up with your new system.</p>
+                        <button onclick="showSetup()">Get Started</button>
+                    </div>
+                </div>
+            `;
+        container.innerHTML = cardHTML;
+        physicsObjects.push(
+          createPhysicsObject(container.querySelector(".card"), {
+            canMove: true,
+          })
+        );
+      }
+
+      // Show setup screen
+      function showSetup() {
+        clearMainContainer();
+        const container = document.querySelector(".container");
+        const cardHTML = `
+                <div class="card liquid-glass-container">
+                    <div class="glass-band"></div>
+                    <div class="glass-content">
+                        <div class="profile-upload" onclick="document.getElementById('profile-input').click()">
+                            <img src="https://i.ibb.co/LDq5TqD0/Untitled-80-001.png alt="Profile" id="profile-preview">
+                            <div class="overlay">Choose Image</div>
+                            <input type="file" id="profile-input" hidden accept="image/*" onchange="handleProfileImage(event)">
+                        </div>
+                        <form onsubmit="handleSetup(event)" class="setup-form">
+                            <div class="input-group"><input type="text" placeholder="First Name" required name="firstName"></div>
+                            <div class="input-group"><input type="text" placeholder="Last Name" required name="lastName"></div>
+                            <div class="input-group"><input type="email" placeholder="Email Address" required name="email"></div>
+                            <div class="input-group"><input type="password" placeholder="Password" required name="password"></div>
+                            <button type="submit">Continue</button>
+                        </form>
+                    </div>
+                </div>`;
+        container.innerHTML = cardHTML;
+        physicsObjects.push(
+          createPhysicsObject(container.querySelector(".card"), {
+            canMove: true,
+          })
+        );
+      }
+
+      function handleProfileImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          document.getElementById("profile-preview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function handleSetup(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        state.userData = {
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          password: formData.get("password"),
+          profilePic: document.getElementById("profile-preview").src,
+        };
+        saveState();
+        showLogin();
+      }
+
+      function showLogin() {
+        clearMainContainer();
+        const container = document.querySelector(".container");
+        const cardHTML = `
+                <div class="card liquid-glass-container">
+                    <div class="glass-band"></div>
+                    <div class="glass-content">
+                        <div class="profile-upload"><img src="${state.userData.profilePic}" alt="Profile"></div>
+                        <h2 style="text-align: center; margin-bottom: 1rem;">${state.userData.firstName} ${state.userData.lastName}</h2>
+                        <p style="text-align: center; margin-bottom: 2rem; opacity: 0.8;">${state.userData.email}</p>
+                        <form onsubmit="handleLogin(event)" id="login-form">
+                            <div class="input-group"><input type="password" placeholder="Enter Password" required name="password"></div>
+                            <button type="submit" id="login-button">Sign In</button>
+                        </form>
+                        <button onclick="resetAccount()" style="margin-top: 1rem; opacity: 0.7; font-size: 0.875rem;">Reset Account</button>
+                    </div>
+                </div>`;
+        container.innerHTML = cardHTML;
+        physicsObjects.push(
+          createPhysicsObject(container.querySelector(".card"), {
+            canMove: true,
+          })
+        );
+      }
+
+      async function handleLogin(event) {
+        event.preventDefault();
+        const passwordInput = event.target.password;
+        if (passwordInput.value !== state.userData.password) {
+          passwordInput.value = "";
+          passwordInput.classList.add("shake");
+          setTimeout(() => passwordInput.classList.remove("shake"), 500);
+          return;
+        }
+        const button = document.getElementById("login-button");
+        button.innerHTML = '<div class="spinner"></div>';
+        button.disabled = true;
+        await new Promise((resolve) => setTimeout(resolve, 800));
+
+        const iframe = document.createElement("iframe");
+        iframe.src = "https://fusa-os-desktop.glitch.me";
+        iframe.className = "fullscreen-iframe";
+        iframe.allow =
+          "camera; fullscreen; geolocation; microphone; autoplay; encrypted-media; picture-in-picture; midi; clipboard-write; xr-spatial-tracking; payment";
+        document.body.appendChild(iframe);
+      }
+
+      function resetAccount() {
+        localStorage.removeItem("fusaState");
+        location.reload();
+      }
+
+      // Initialize
+      if (state.userData) {
+        showLogin();
+      } else {
+        showWelcome();
+      }
+      // Add physics to the environment button
+      physicsObjects.push(
+        createPhysicsObject(document.querySelector(".environment-button"), {
+          canMove: true,
+        })
+      );
+    </script>
+  </body>
+</html>
